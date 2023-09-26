@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 from ucimlrepo import fetch_ucirepo 
@@ -11,7 +11,7 @@ import seaborn as sns
  
 
 
-# In[2]:
+# In[4]:
 
 
 # fetch dataset 
@@ -140,6 +140,36 @@ data['Curricular units 2nd sem (grade)'].value_counts().plot(kind='bar')
 plt.xlabel('Unidades Curriculares del Segundo Semestre')
 plt.ylabel('Frecuencia')
 plt.title('Diagrama de Barras para Unidades Curriculares del Segundo Semestre')
+plt.show()
+
+
+# In[5]:
+
+
+sns.violinplot(x='Unemployment rate', y='Target', data=data)
+plt.xlabel('Tasa de Desempleo (Unemployment Rate)')
+plt.ylabel('Distribución del Target')
+plt.title('Diagrama de Violín para Tasa de Desempleo y Target')
+plt.show()
+
+
+# In[7]:
+
+
+sns.violinplot(x="Mother's occupation",y="Mother's qualification", data=data)
+plt.xlabel('Ocupación de la Madre')
+plt.ylabel('Calificación de la Madre')
+plt.title('Diagrama de Violín para Unidades Curriculares del Segundo Semestre')
+plt.show()
+
+
+# In[10]:
+
+
+sns.violinplot(x='Curricular units 2nd sem (grade)', y='Age at enrollment', data=data)
+plt.xlabel('Unidades Curriculares del Segundo Semestre')
+plt.ylabel('Age at enrollment')
+plt.title('Gráfico de Violín Agrupado para Unidades Curriculares del Segundo Semestre y Grados')
 plt.show()
 
 
