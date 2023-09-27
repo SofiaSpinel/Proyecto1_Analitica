@@ -24,7 +24,7 @@ app = dash.Dash(__name__)
 
 # Define una paleta de colores personalizada con tonos más oscuros de "pink" y "purple"
 color_palette = {
-    "Graduate": "#FF1493",    # Pink oscuro
+    "Graduate": "darkorange",    # Pink oscuro
     "Dropout": "#800080",    # Purple oscuro
     # Agrega más colores aquí para otras categorías si es necesario
 }
@@ -185,7 +185,7 @@ def update_course_tuition_bar(selected_targets):
 )
 def update_mquali_bar(selected_targets):
     filtered_df = df[df['target'].isin(selected_targets)]
-    color_map = get_color_map(selected_targets)
+    color_map = {target: color_palette.get(target, "green") for target in selected_targets}
     fig = px.bar(
         filtered_df,
         x="mquali",
