@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep 27 10:43:16 2023
+
+@author: sofia
+"""
+
 import plotly.express as px
 import pandas as pd
 import dash
@@ -14,6 +21,13 @@ df = pd.read_excel("C:/Users/sofia/OneDrive/Documents/GitHub/Proyecto1_Analitica
 df.head()
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
+
+# Define una paleta de colores personalizada con tonos más oscuros de "pink" y "purple"
+color_palette = {
+    "Graduate": "#FF1493",    # Pink oscuro
+    "Dropout": "#800080",    # Purple oscuro
+    # Agrega más colores aquí para otras categorías si es necesario
+}
 
 # Define la disposición de la aplicación
 app.layout = html.Div([
@@ -101,7 +115,7 @@ def get_color_map(target_values):
 )
 def update_course_graph(selected_targets):
     filtered_df = df[df['target'].isin(selected_targets)]
-    color_map = get_color_map(selected_targets)
+    color_map = {target: color_palette.get(target, "green") for target in selected_targets}
     fig = px.bar(
         filtered_df,
         x="course",
