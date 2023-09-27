@@ -9,7 +9,7 @@ Original file is located at
 
 import plotly.express as px
 import pandas as pd
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 fig = target_distribution = df['target'].value_counts().reset_index()
 target_distribution.columns = ['target', 'count']
@@ -26,13 +26,11 @@ import pandas as pd
 # Asegúrate de que 'df' contiene la columna 'target'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Crea un histograma de la variable "target"
 fig = px.histogram(df, x="target", title="Histograma de la Variable 'target'")
 fig.show()
-
-pip install dash
 
 import plotly.express as px
 import pandas as pd
@@ -45,7 +43,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene las columnas 'target' y 'course'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
@@ -86,7 +84,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene la columna 'target'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
@@ -127,7 +125,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene la columna 'target'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
@@ -168,7 +166,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene las columnas 'target' y 'grade'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
@@ -209,7 +207,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene las columnas 'target' y 'age'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
@@ -246,7 +244,7 @@ import pandas as pd
 # Asegúrate de que 'df' contiene las columnas 'target', 'course' y 'tuition'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Crea un gráfico de barras apiladas que muestra la distribución de "target" por curso y matrícula
 fig = px.bar(df, x="course", color="target", facet_col="tuition",
@@ -260,7 +258,7 @@ import pandas as pd
 # Asegúrate de que 'df' contiene las columnas 'target' y 'mquali'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Crea un gráfico de barras apiladas que muestra la distribución de "target" por nivel educativo
 fig = px.bar(df, x="mquali", color="target", title="Distribución de 'target' por Nivel Educativo",
@@ -275,7 +273,7 @@ import pandas as pd
 # Asegúrate de que 'df' contiene las columnas 'target', 'course' y 'age'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Crea un gráfico de barras apiladas que muestra la distribución de "target" por curso y edad
 fig = px.bar(df, x="course", color="target", facet_col="age",
@@ -293,7 +291,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene las columnas necesarias para todas las gráficas
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel('/content/data_variables.xlsx')
+df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
