@@ -22,12 +22,11 @@ df.head()
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
 
-# Define una paleta de colores personalizada con tonos más oscuros de "pink" y "purple"
+# Paleta de colores personalizada 
 color_palette = {
     "Graduate": "darkorange",    # Pink oscuro
-    "Dropout": "#800080",    # Purple oscuro
-    # Agrega más colores aquí para otras categorías si es necesario
-}
+    "Dropout": "#6600CC",    # Purple oscuro
+    }
 
 # Define la disposición de la aplicación
 app.layout = html.Div([
@@ -123,6 +122,8 @@ def update_course_graph(selected_targets):
         color_discrete_map=color_map,  # Colores personalizados
         title="Distribución de 'target' por Curso"
     )
+    fig.update_layout(plot_bgcolor='white')
+
     return fig
 
 # Define la función de actualización del Gráfico 2
