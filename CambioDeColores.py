@@ -16,7 +16,7 @@ from dash.dependencies import Input, Output
 # Asegúrate de que 'df' contiene las columnas necesarias para todas las gráficas
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("C:/Users/sofia/OneDrive/Documents/GitHub/Proyecto1_Analitica/data_variables.xlsx")
+df = pd.read_excel("C:/Users/sofia/Downloads/Analitica/data_variables.xlsx")
 
 df.head()
 # Inicializa la aplicación Dash
@@ -119,7 +119,7 @@ def update_course_graph(selected_targets):
         filtered_df,
         x="course",
         color="target",
-        color_discrete_map=color_map,  # Colores personalizados
+        #color_discrete_map=color_map,  # Colores personalizados
         title="Distribución de 'target' por Curso"
     )
     #fig.update_layout(plot_bgcolor='white')
