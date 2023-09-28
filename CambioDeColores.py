@@ -122,7 +122,7 @@ def update_course_graph(selected_targets):
         color_discrete_map=color_map,  # Colores personalizados
         title="Distribución de 'target' por Curso"
     )
-    fig.update_layout(plot_bgcolor='white')
+    #fig.update_layout(plot_bgcolor='white')
 
     return fig
 
