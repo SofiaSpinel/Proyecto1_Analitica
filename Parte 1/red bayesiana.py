@@ -6,7 +6,7 @@ from pgmpy.estimators import MaximumLikelihoodEstimator
 
 
 #cargar dataframe
-df = pd.read_excel("C:/Users/valer/OneDrive/Documentos/GitHub/Proyecto1_Analitica/data_variables.xlsx")
+df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 1/data_variables.xlsx")
 df.head()
 
 #crear modelo
