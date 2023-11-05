@@ -58,3 +58,48 @@ print("--------------")
 print(estimated_modelh_bic.edges())
 print("--------------")
 print(scoring_method.score(estimated_modelh_bic))
+
+Modelo_BicScore = BayesianNetwork(estimated_modelh_bic)
+
+#maxima verosimilitud
+emv_2= MaximumLikelihoodEstimator(model= Modelo_BicScore, data=X_train)
+
+#ejemplo de cpd
+cpd_target_2 = emv_2.estimate_cpd(node="target")
+#print(cpd_target_2_3)
+
+cpd_course_2 = emv_2.estimate_cpd(node='course')
+#print(cpd_course_2_3)
+
+#estimar todo el modelo
+Modelo_BicScore.fit(data=X_train, estimator = MaximumLikelihoodEstimator)
+
+#Evaluacion----------------------------------------------------------------------
+y_test= X_test['target']
+X_test=X_test.drop('target', axis=1)
+
+label_encoder = LabelEncoder()
+
+# Aplicar la codificación a las columnas categóricas
+categorical_columns = ['course', 'mquali', 'mocup', 'tuition', 'unrate', 'age', 'grade']
+for col in categorical_columns:
+    X_train[col] = label_encoder.fit_transform(X_train[col])
+    X_test[col] = label_encoder.transform(X_test[col])
+
+y_pred = Modelo_BicScore.predict(X_test)
+
+# Calcula la exactitud del modelo
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Exactitud del modelo: {accuracy}')
+
+# Calcula y reporta Verdaderos Positivos, Falsos Positivos, Verdaderos Negativos y Falsos Negativos
+confusion = confusion_matrix(y_test, y_pred)
+true_positives = confusion[1, 1]
+false_positives = confusion[0, 1]
+true_negatives = confusion[0, 0]
+false_negatives = confusion[1, 0]
+
+print(f'Verdaderos Positivos: {true_positives}')
+print(f'Falsos Positivos: {false_positives}')
+print(f'Verdaderos Negativos: {true_negatives}')
+print(f'Falsos Negativos: {false_negatives}')

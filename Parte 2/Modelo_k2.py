@@ -27,10 +27,10 @@ emv_2 = MaximumLikelihoodEstimator(model= model_2, data=df)
 
 #ejemplo de cpd
 cpd_target_2 = emv_2.estimate_cpd(node="target")
-print(cpd_target_2)
+#print(cpd_target_2)
 
 cpd_course_2 = emv_2.estimate_cpd(node='course')
-print(cpd_course_2)
+#print(cpd_course_2)
 
 #estimar todo el modelo
 model_2.fit(data=df, estimator = MaximumLikelihoodEstimator)
@@ -52,9 +52,9 @@ estimated_modelh = esth.estimate(
 print("------K2---#1-----------------------------------------------------")
 #print(estimated_modelh)
 print("--------------")
-print(estimated_modelh.nodes())
+#print(estimated_modelh.nodes())
 print("--------------")
-print(estimated_modelh.edges())
+#print(estimated_modelh.edges())
 
 print(scoring_method.score(estimated_modelh))
 
@@ -65,10 +65,10 @@ emv_2 = MaximumLikelihoodEstimator(model= Modelo_k2, data=X_train)
 
 #ejemplo de cpd
 cpd_target_2 = emv_2.estimate_cpd(node="target")
-print(cpd_target_2)
+#print(cpd_target_2)
 
 cpd_course_2 = emv_2.estimate_cpd(node='course')
-print(cpd_course_2)
+#print(cpd_course_2)
 
 #estimar todo el modelo
 Modelo_k2.fit(data=X_train, estimator = MaximumLikelihoodEstimator)
@@ -89,9 +89,9 @@ estimated_modelh_2 = esth.estimate(
 print("------K2---#2-----------------------------------------------------")
 #print(estimated_modelh)
 print("--------------")
-print(estimated_modelh_2.nodes())
+#print(estimated_modelh_2.nodes())
 print("--------------")
-print(estimated_modelh_2.edges())
+#print(estimated_modelh_2.edges())
 
 print(scoring_method.score(estimated_modelh_2))
 
@@ -102,10 +102,10 @@ emv_2_2 = MaximumLikelihoodEstimator(model= Modelo_k2_2, data=X_train)
 
 #ejemplo de cpd
 cpd_target_2_2 = emv_2_2.estimate_cpd(node="target")
-print(cpd_target_2)
+#print(cpd_target_2)
 
 cpd_course_2_2 = emv_2_2.estimate_cpd(node='course')
-print(cpd_course_2_2)
+#print(cpd_course_2_2)
 
 #estimar todo el modelo
 Modelo_k2_2.fit(data=X_train, estimator = MaximumLikelihoodEstimator)
@@ -126,27 +126,30 @@ estimated_modelh_3 = esth.estimate(
 print("------K2---#3-----------------------------------------------------")
 #print(estimated_modelh)
 print("--------------")
-print(estimated_modelh_3.nodes())
+#print(estimated_modelh_3.nodes())
 print("--------------")
-print(estimated_modelh_3.edges())
+#print(estimated_modelh_3.edges())
 
 print(scoring_method.score(estimated_modelh_3))
 
-Modelo_k2_3 = BayesianNetwork([('mquali', 'age'), ('mocup', 'mquali'), ('mocup', 'unrate'), ('target', 'tuition'), ('target', 'age'), ('target', 'course'), ('target', 'mocup'), ('age', 'course'), ('grade', 'target'), ('grade', 'course')])
+Modelo_k2_3 = BayesianNetwork(estimated_modelh_3)
 
 #maxima verosimilitud
 emv_2_3 = MaximumLikelihoodEstimator(model= Modelo_k2_3, data=X_train)
 
 #ejemplo de cpd
 cpd_target_2_3 = emv_2_3.estimate_cpd(node="target")
-print(cpd_target_2_3)
+#print(cpd_target_2_3)
 
 cpd_course_2_3 = emv_2_3.estimate_cpd(node='course')
-print(cpd_course_2_3)
+#print(cpd_course_2_3)
 
 #estimar todo el modelo
 Modelo_k2_3.fit(data=X_train, estimator = MaximumLikelihoodEstimator)
 
+print("-------Comparacion-------")
+print(scoring_method.score(estimated_modelh_2))
+print(scoring_method.score(estimated_modelh_3))
 #Evaluacion----------------------------------------------------------------------
 y_test= X_test['target']
 X_test=X_test.drop('target', axis=1)
