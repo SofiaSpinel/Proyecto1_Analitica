@@ -86,7 +86,9 @@ esth = HillClimbSearch(data=X_train)
 estimated_modelh_2 = esth.estimate(
     scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4),
     black_list=[('mocup', 'mquali'),('target', 'age'),('target', 'mocup'),('target', 'tuition'),
-                ('target', 'grade'),('age', 'mquali'),('grade', 'tuition')]
+                ('target', 'grade'),('age', 'mquali'),('grade', 'tuition'),('grade', 'course'),
+                ('mquali', 'age'),('unrate', 'course'),('target', 'course'),('mocup', 'age'),
+                ('mocup', 'unrate'),('mquali', 'unrate'),('unrate', 'mquali')]
 )
 print("------K2---#2-----------------------------------------------------")
 #print(estimated_modelh)
