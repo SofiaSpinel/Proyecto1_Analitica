@@ -84,7 +84,9 @@ for i in model_2.nodes():
 scoring_method = K2Score(data=X_train)
 esth = HillClimbSearch(data=X_train)
 estimated_modelh_2 = esth.estimate(
-    scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4) 
+    scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4),
+    black_list=[('mocup', 'mquali'),('target', 'age'),('target', 'mocup'),('target', 'tuition'),
+                ('target', 'grade'),('age', 'mquali'),('grade', 'tuition')]
 )
 print("------K2---#2-----------------------------------------------------")
 #print(estimated_modelh)
@@ -95,8 +97,7 @@ print("--------------")
 
 print(scoring_method.score(estimated_modelh_2))
 
-Modelo_k2_2 = BayesianNetwork([('mquali', 'age'), ('mocup', 'mquali'), ('mocup', 'unrate'), ('target', 'tuition'), ('target', 'age'), ('target', 'course'), ('target', 'mocup'), ('age', 'course'), ('grade', 'target'), ('grade', 'course')])
-
+Modelo_k2_2 = BayesianNetwork(estimated_modelh_2)
 #maxima verosimilitud
 emv_2_2 = MaximumLikelihoodEstimator(model= Modelo_k2_2, data=X_train)
 
@@ -121,7 +122,11 @@ for i in model_2.nodes():
 scoring_method = K2Score(data=X_train)
 esth = HillClimbSearch(data=X_train)
 estimated_modelh_3 = esth.estimate(
-    scoring_method=scoring_method, max_indegree=8, max_iter=int(1e4) 
+    scoring_method=scoring_method, max_indegree=8, max_iter=int(1e4),
+    black_list=[('mocup', 'mquali'),('target', 'age'),('target', 'mocup'),('target', 'tuition'),
+                ('target', 'grade'),('age', 'mquali'),('grade', 'tuition'),('grade', 'course'),
+                ('mquali', 'age'),('unrate', 'course'),('target', 'course'),('mocup', 'age'),
+                ('mocup', 'unrate'),('mquali', 'unrate'),('unrate', 'mquali')]
 )
 print("------K2---#3-----------------------------------------------------")
 #print(estimated_modelh)

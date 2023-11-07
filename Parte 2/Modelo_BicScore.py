@@ -48,7 +48,8 @@ estimated_modelh_bic = esth_bic.estimate(
     scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4), 
     black_list=[('target', 'age'),('unrate', 'mquali'),('target', 'tuition'),
                 ('target', 'grade'),('age', 'mquali'),('age', 'tuition'),
-                ('target', 'mquali'),('grade', 'tuition'),('mquali', 'unrate')]
+                ('target', 'mquali'),('grade', 'tuition'),('mquali', 'unrate'), 
+                ('target', 'course'),('mquali', 'age'),('tuition', 'age'),('grade', 'age')]
 )
 
 print(estimated_modelh_bic)
