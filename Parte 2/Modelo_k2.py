@@ -184,3 +184,9 @@ print(f'Verdaderos Positivos: {true_positives}')
 print(f'Falsos Positivos: {false_positives}')
 print(f'Verdaderos Negativos: {true_negatives}')
 print(f'Falsos Negativos: {false_negatives}')
+
+from pgmpy.readwrite import BIFWriter
+# write model to a BIF file 
+filename='monty.bif'
+writer = BIFWriter(Modelo_k2_3)
+writer.write_bif(filename=filename)
