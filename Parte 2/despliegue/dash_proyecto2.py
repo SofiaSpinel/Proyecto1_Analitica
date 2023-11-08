@@ -23,6 +23,7 @@ HOST = os.getenv('HOST')
 PORT = os.getenv('PORT')
 DBNAME = os.getenv('DBNAME')
 
+#Contraseña en los anexos del reporte subido a bloque neón
 engine = create_engine("postgresql+psycopg2://postgres:xxxxxx@isabel.cvcju9aqozqq.us-east-1.rds.amazonaws.com:5432/datos2")
 #engine = psycopg2.connect(
  #   dbname=DBNAME,
