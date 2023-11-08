@@ -16,6 +16,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 from pgmpy.estimators import HillClimbSearch
 from pgmpy.estimators import K2Score
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+
 
 df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables_proy2.xlsx")
 df.head()
@@ -99,8 +103,43 @@ true_positives = confusion[1, 1]
 false_positives = confusion[0, 1]
 true_negatives = confusion[0, 0]
 false_negatives = confusion[1, 0]
+sensibilidad=true_positives/(true_positives+false_negatives)
 
 print(f'Verdaderos Positivos: {true_positives}')
 print(f'Falsos Positivos: {false_positives}')
 print(f'Verdaderos Negativos: {true_negatives}')
 print(f'Falsos Negativos: {false_negatives}')
+
+print(f'Sensibilidad del modelo: {sensibilidad}')
+
+# Obtener las probabilidades de pertenencia a la clase positiva
+# Predecir las probabilidades de pertenencia a la clase positiva
+y_predicted = Modelo_BicScore.predict(X_test)
+
+
+# Obtener las probabilidades de pertenencia a la clase positiva (asumiendo que la clase positiva es 1)
+# Convertir las etiquetas de clase a valores numéricos binarios
+label_encoder = LabelEncoder()
+y_test_binary = label_encoder.fit_transform(y_test)
+y_predicted_binary = label_encoder.transform(y_predicted)
+
+# Calcular la curva ROC y el AUC
+fpr, tpr, _ = roc_curve(y_test_binary, y_predicted_binary)
+roc_auc = auc(fpr, tpr)
+
+print("Etiquetas codificadas:", y_test_binary)
+print("Clases originales:", label_encoder.inverse_transform(y_test_binary))
+
+
+# Graficar la curva ROC
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = {:.2f})'.format(roc_auc))
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('Tasa de Falsos Positivos')
+plt.ylabel('Tasa de Verdaderos Positivos')
+plt.title('Curva ROC - BicScore')
+plt.legend(loc="lower right")
+plt.show()
+
