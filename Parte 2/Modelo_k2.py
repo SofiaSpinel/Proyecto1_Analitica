@@ -214,8 +214,8 @@ y_predicted_binary = label_encoder.transform(y_predicted)
 fpr, tpr, _ = roc_curve(y_test_binary, y_predicted_binary)
 roc_auc = auc(fpr, tpr)
 
-print("Etiquetas codificadas:", y_test_binary)
-print("Clases originales:", label_encoder.inverse_transform(y_test_binary))
+#print("Etiquetas codificadas:", y_test_binary)
+#print("Clases originales:", label_encoder.inverse_transform(y_test_binary))
 
 
 # Graficar la curva ROC

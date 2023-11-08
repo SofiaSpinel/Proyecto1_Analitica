@@ -127,8 +127,8 @@ y_predicted_binary = label_encoder.transform(y_predicted)
 fpr, tpr, _ = roc_curve(y_test_binary, y_predicted_binary)
 roc_auc = auc(fpr, tpr)
 
-print("Etiquetas codificadas:", y_test_binary)
-print("Clases originales:", label_encoder.inverse_transform(y_test_binary))
+#print("Etiquetas codificadas:", y_test_binary)
+#print("Clases originales:", label_encoder.inverse_transform(y_test_binary))
 
 
 # Graficar la curva ROC
@@ -139,7 +139,7 @@ plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
 plt.xlabel('Tasa de Falsos Positivos')
 plt.ylabel('Tasa de Verdaderos Positivos')
-plt.title('Curva ROC - BicScore')
+plt.title('Curva ROC - BicScoreSS')
 plt.legend(loc="lower right")
 plt.show()
 
