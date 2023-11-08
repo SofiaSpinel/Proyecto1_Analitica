@@ -9,7 +9,7 @@ Original file is located at
 
 import plotly.express as px
 import pandas as pd
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
+df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 1/data_variables.xlsx")
 
 fig = target_distribution = df['target'].value_counts().reset_index()
 target_distribution.columns = ['target', 'count']
@@ -26,7 +26,7 @@ import pandas as pd
 # Asegúrate de que 'df' contiene la columna 'target'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
+df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 1/data_variables.xlsx")
 
 # Crea un histograma de la variable "target"
 fig = px.histogram(df, x="target", title="Histograma de la Variable 'target'")
@@ -36,14 +36,63 @@ import plotly.express as px
 import pandas as pd
 import dash
 import dash_core_components as dcc
-import dash_html_components as html
+from dash import html
 from dash.dependencies import Input, Output
+import pandas as pd
+from pgmpy.models import BayesianNetwork
+from pgmpy.factors.discrete import TabularCPD
+from pgmpy.sampling import BayesianModelSampling
+from pgmpy.estimators import MaximumLikelihoodEstimator
+import numpy
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.preprocessing import LabelEncoder
+from pgmpy.estimators import HillClimbSearch
+from pgmpy.estimators import K2Score
+from dash import dcc  # dash core components
+from dash import html # dash html components
+from dash.dependencies import Input, Output
+import psycopg2
+from dotenv import load_dotenv # pip install python-dotenv
+import os
+from pgmpy.readwrite import BIFWriter
+
+# path to env file
+env_path="C:\\Users\\sarit\\proy2\\app.env"
+# load env 
+load_dotenv(dotenv_path=env_path)
+# extract env variables
+USER=os.getenv('USER')
+PASSWORD=os.getenv('PASSWORD')
+HOST=os.getenv('HOST')
+PORT=os.getenv('PORT')
+DBNAME=os.getenv('DBNAME')
+
+#connect to DB
+engine = psycopg2.connect(
+    dbname=DBNAME,
+    user=USER,
+    password=PASSWORD,
+    host=HOST,
+    port=PORT
+)
+print(DBNAME)
+print(USER)
+print(PASSWORD)
+print(HOST)
+print(PORT)
+
+cursor = engine.cursor()
+query = "SELECT * FROM variables"
+#crear modelo
+df=pd.read_sql(query, engine)
 
 # Supongamos que tienes un DataFrame llamado 'df' con tus datos
 # Asegúrate de que 'df' contiene las columnas 'target' y 'course'
 
 # Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
+#df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 1/data_variables.xlsx")
 
 # Inicializa la aplicación Dash
 app = dash.Dash(__name__)
@@ -67,367 +116,6 @@ app.layout = html.Div([
 def update_graph(selected_targets):
     filtered_df = df[df['target'].isin(selected_targets)]
     fig = px.bar(filtered_df, x="course", color="target", title="Distribución de 'target' por Carrera")
-    return fig
-
-# Ejecuta la aplicación Dash
-if __name__ == '__main__':
-    app.run_server(debug=True)
-
-import plotly.express as px
-import pandas as pd
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene la columna 'target'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Inicializa la aplicación Dash
-app = dash.Dash(__name__)
-
-# Define la disposición de la aplicación
-app.layout = html.Div([
-    dcc.Checklist(
-        id='target-checklist',
-        options=[{'label': target, 'value': target} for target in df['target'].unique()],
-        value=df['target'].unique(),  # Valor inicial (todos los valores seleccionados)
-        labelStyle={'display': 'block'}  # Mostrar etiquetas en bloques para una mejor visualización
-    ),
-    dcc.Graph(id='target-graph')
-])
-
-# Define la función de actualización del gráfico
-@app.callback(
-    Output('target-graph', 'figure'),
-    Input('target-checklist', 'value')
-)
-def update_graph(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="course", color="target", title="Distribución de 'target' por Carrera")
-    return fig
-
-# Ejecuta la aplicación Dash
-if __name__ == '__main__':
-    app.run_server(debug=True)
-
-import plotly.express as px
-import pandas as pd
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene la columna 'target'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Inicializa la aplicación Dash
-app = dash.Dash(__name__)
-
-# Define la disposición de la aplicación
-app.layout = html.Div([
-    dcc.Checklist(
-        id='target-checklist',
-        options=[{'label': target, 'value': target} for target in df['target'].unique()],
-        value=df['target'].unique(),  # Valor inicial (todos los valores seleccionados)
-        labelStyle={'display': 'block'}  # Mostrar etiquetas en bloques para una mejor visualización
-    ),
-    dcc.Graph(id='target-graph')
-])
-
-# Define la función de actualización del gráfico
-@app.callback(
-    Output('target-graph', 'figure'),
-    Input('target-checklist', 'value')
-)
-def update_graph(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="course", color="target", title="Distribución de 'target' por Carrera")
-    return fig
-
-# Ejecuta la aplicación Dash
-if __name__ == '__main__':
-    app.run_server(debug=True)
-
-import plotly.express as px
-import pandas as pd
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene las columnas 'target' y 'grade'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Inicializa la aplicación Dash
-app = dash.Dash(__name__)
-
-# Define la disposición de la aplicación
-app.layout = html.Div([
-    dcc.Checklist(
-        id='target-checklist',
-        options=[{'label': target, 'value': target} for target in df['target'].unique()],
-        value=df['target'].unique(),  # Valor inicial (todos los valores seleccionados)
-        labelStyle={'display': 'block'}  # Mostrar etiquetas en bloques para una mejor visualización
-    ),
-    dcc.Graph(id='target-grade-boxplot')
-])
-
-# Define la función de actualización del gráfico de caja
-@app.callback(
-    Output('target-grade-boxplot', 'figure'),
-    Input('target-checklist', 'value')
-)
-def update_boxplot(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.box(filtered_df, x="target", y="grade", title="Distribución de 'target' en función de la Puntuación de 'grade'")
-    return fig
-
-# Ejecuta la aplicación Dash
-if __name__ == '__main__':
-    app.run_server(debug=True)
-
-import plotly.express as px
-import pandas as pd
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene las columnas 'target' y 'age'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Inicializa la aplicación Dash
-app = dash.Dash(__name__)
-
-# Define la disposición de la aplicación
-app.layout = html.Div([
-    dcc.Checklist(
-        id='target-checklist',
-        options=[{'label': target, 'value': target} for target in df['target'].unique()],
-        value=df['target'].unique(),  # Valor inicial (todos los valores seleccionados)
-        labelStyle={'display': 'block'}  # Mostrar etiquetas en bloques para una mejor visualización
-    ),
-    dcc.Graph(id='target-age-bar')
-])
-
-# Define la función de actualización del gráfico de barras de conteo
-@app.callback(
-    Output('target-age-bar', 'figure'),
-    Input('target-checklist', 'value')
-)
-def update_bar(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="target", color="age", title="Distribución de 'target' con Colores Codificados por edad")
-    return fig
-
-# Ejecuta la aplicación Dash
-if __name__ == '__main__':
-    app.run_server(debug=True)
-
-import plotly.express as px
-import pandas as pd
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene las columnas 'target', 'course' y 'tuition'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Crea un gráfico de barras apiladas que muestra la distribución de "target" por curso y matrícula
-fig = px.bar(df, x="course", color="target", facet_col="tuition",
-             title="Distribución de 'target' por Curso y Matrícula")
-fig.show()
-
-import plotly.express as px
-import pandas as pd
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene las columnas 'target' y 'mquali'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Crea un gráfico de barras apiladas que muestra la distribución de "target" por nivel educativo
-fig = px.bar(df, x="mquali", color="target", title="Distribución de 'target' por Nivel Educativo",
-             category_orders={"mquali": ["basic", "secundary"]})
-
-fig.show()
-
-import plotly.express as px
-import pandas as pd
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene las columnas 'target', 'course' y 'age'
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Crea un gráfico de barras apiladas que muestra la distribución de "target" por curso y edad
-fig = px.bar(df, x="course", color="target", facet_col="age",
-             title="Distribución de 'target' por Curso y Edad")
-fig.show()
-
-import plotly.express as px
-import pandas as pd
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-
-# Supongamos que tienes un DataFrame llamado 'df' con tus datos
-# Asegúrate de que 'df' contiene las columnas necesarias para todas las gráficas
-
-# Reemplaza 'df' con tu propio DataFrame
-df = pd.read_excel("D:/7. Septimo semestre/Analítica Computacional/Proyecto/data_variables.xlsx")
-
-# Inicializa la aplicación Dash
-app = dash.Dash(__name__)
-
-# Define la disposición de la aplicación
-app.layout = html.Div([
-    html.H1("Análisis de Datos con Dash"),
-
-    # Gráfico 1: Gráfico de barras apiladas con checklist por target y curso
-    html.Div([
-        dcc.Checklist(
-            id='target-checklist-1',
-            options=[{'label': target, 'value': target} for target in df['target'].unique()],
-            value=df['target'].unique(),
-            labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='target-course-graph')
-    ]),
-
-    # Gráfico 2: Gráfico de caja con checklist por target
-    html.Div([
-        dcc.Checklist(
-            id='target-checklist-2',
-            options=[{'label': target, 'value': target} for target in df['target'].unique()],
-            value=df['target'].unique(),
-            labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='target-grade-boxplot')
-    ]),
-
-    # Gráfico 3: Gráfico de barras de conteo con checklist por target
-    html.Div([
-        dcc.Checklist(
-            id='target-checklist-3',
-            options=[{'label': target, 'value': target} for target in df['target'].unique()],
-            value=df['target'].unique(),
-            labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='target-age-bar')
-    ]),
-
-    # Gráfico 4: Gráfico de barras apiladas con checklist por target, curso y matrícula
-    html.Div([
-        dcc.Checklist(
-            id='target-checklist-4',
-            options=[{'label': target, 'value': target} for target in df['target'].unique()],
-            value=df['target'].unique(),
-            labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='target-course-tuition-bar')
-    ]),
-
-    # Gráfico 5: Gráfico de barras apiladas con checklist por target y nivel educativo
-    html.Div([
-        dcc.Checklist(
-            id='target-checklist-5',
-            options=[{'label': target, 'value': target} for target in df['target'].unique()],
-            value=df['target'].unique(),
-            labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='target-mquali-bar')
-    ]),
-
-    # Gráfico 6: Gráfico de barras apiladas con checklist por target, curso y edad
-    html.Div([
-        dcc.Checklist(
-            id='target-checklist-6',
-            options=[{'label': target, 'value': target} for target in df['target'].unique()],
-            value=df['target'].unique(),
-            labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='target-course-age-bar')
-    ])
-])
-
-# Define la función de actualización del Gráfico 1
-@app.callback(
-    Output('target-course-graph', 'figure'),
-    Input('target-checklist-1', 'value')
-)
-def update_course_graph(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="course", color="target", title="Distribución de 'target' por Curso")
-    return fig
-
-# Define la función de actualización del Gráfico 2
-@app.callback(
-    Output('target-grade-boxplot', 'figure'),
-    Input('target-checklist-2', 'value')
-)
-def update_grade_boxplot(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.box(filtered_df, x="target", y="grade", title="Distribución de 'target' en función de la Puntuación de 'grade'")
-    return fig
-
-# Define la función de actualización del Gráfico 3
-@app.callback(
-    Output('target-age-bar', 'figure'),
-    Input('target-checklist-3', 'value')
-)
-def update_age_bar(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="target", color="age", title="Distribución de 'target' con Colores Codificados por Edad")
-    return fig
-
-# Define la función de actualización del Gráfico 4
-@app.callback(
-    Output('target-course-tuition-bar', 'figure'),
-    Input('target-checklist-4', 'value')
-)
-def update_course_tuition_bar(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="course", color="target", facet_col="tuition",
-                 title="Distribución de 'target' por Curso y Matrícula")
-    return fig
-
-# Define la función de actualización del Gráfico 5
-@app.callback(
-    Output('target-mquali-bar', 'figure'),
-    Input('target-checklist-5', 'value')
-)
-def update_mquali_bar(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="mquali", color="target", title="Distribución de 'target' por Nivel Educativo",
-                 category_orders={"mquali": ["basic", "secundary"]})
-    return fig
-
-# Define la función de actualización del Gráfico 6
-@app.callback(
-    Output('target-course-age-bar', 'figure'),
-    Input('target-checklist-6', 'value')
-)
-def update_course_age_bar(selected_targets):
-    filtered_df = df[df['target'].isin(selected_targets)]
-    fig = px.bar(filtered_df, x="course", color="target", facet_col="age",
-                 title="Distribución de 'target' por Curso y Edad")
     return fig
 
 # Ejecuta la aplicación Dash
