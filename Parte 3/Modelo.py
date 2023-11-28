@@ -19,8 +19,9 @@ from pgmpy.estimators import K2Score
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
+from pgmpy.readwrite import BIFWriter
 
-df = pd.read_excel("C:/Users/sofia/OneDrive/Documents/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3.xlsx")
+df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3_SinPeriodo.xlsx")
 df.head()
 
 model = BayesianNetwork([('COLE_BILINGUE', 'puntaje'),
@@ -87,7 +88,7 @@ print(f'Falsos Negativos: {false_negatives}')
 
   
 #Segunda opción de modelo
-df = pd.read_excel("C:/Users/sofia/OneDrive/Documents/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3.xlsx")
+df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3_SinPeriodo.xlsx")
 df.head()
 
 model2 = BayesianNetwork([('COLE_BILINGUE', 'puntaje'),
@@ -155,4 +156,8 @@ print(f'Falsos Negativos: {false_negatives}')
 
 
 
+# write model to a BIF file 
+filename='proy3.bif'
+writer = BIFWriter(model)
+writer.write_bif(filename=filename)
 
