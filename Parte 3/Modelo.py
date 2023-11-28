@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
 from pgmpy.readwrite import BIFWriter
 
-df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3_SinPeriodo.xlsx")
+df = pd.read_excel("C:/Users/sofia/OneDrive/Documents/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3_SinPeriodo.xlsx")
 df.head()
 
 model = BayesianNetwork([('COLE_BILINGUE', 'puntaje'),
@@ -88,7 +88,7 @@ print(f'Falsos Negativos: {false_negatives}')
 
   
 #Segunda opción de modelo
-df = pd.read_excel("C:/Users/sarit/OneDrive/Documentos/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3_SinPeriodo.xlsx")
+df = pd.read_excel("C:/Users/sofia/OneDrive/Documents/GitHub/Proyecto1_Analitica/Parte 3/DatosFINALproyecto3_SinPeriodo.xlsx")
 df.head()
 
 model2 = BayesianNetwork([('COLE_BILINGUE', 'puntaje'),
@@ -97,7 +97,6 @@ model2 = BayesianNetwork([('COLE_BILINGUE', 'puntaje'),
                           ('ESTU_GENERO','puntaje'),
                           ('FAMI_ESTRATOVIVIENDA','FAMI_TIENEINTERNET'),
                           ('FAMI_ESTRATOVIVIENDA','FAMI_TIENECOMPUTADOR'),
-                          ('FAMI_TIENEINTERNET','FAMI_TIENECOMPUTADOR'),
                           ('FAMI_TIENEINTERNET','puntaje'),
                           ('FAMI_TIENECOMPUTADOR','puntaje'),])
 
@@ -128,10 +127,10 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 label_encoder = LabelEncoder()
 
 # Aplicar la codificación a las columnas categóricas
-categorical_columns = ['COLE_JORNADA', 'COLE_NATURALEZA', 'COLE_BILINGUE', 'ESTU_GENERO', 'FAMI_ESTRATOVIVIENDA', 'FAMI_TIENEINTERNET','FAMI_TIENECOMPUTADOR']
-for col in categorical_columns:
-    X_train[col] = label_encoder.fit_transform(X_train[col])
-    X_test[col] = label_encoder.transform(X_test[col])
+#categorical_columns = ['COLE_JORNADA', 'COLE_NATURALEZA', 'COLE_BILINGUE', 'ESTU_GENERO', 'FAMI_ESTRATOVIVIENDA', 'FAMI_TIENEINTERNET','FAMI_TIENECOMPUTADOR']
+#for col in categorical_columns:
+#    X_train[col] = label_encoder.fit_transform(X_train[col])
+#    X_test[col] = label_encoder.transform(X_test[col])
 
 
 # Crea y ajusta el modelo de red neuronal
