@@ -92,9 +92,11 @@ df.head()
 
 model2 = BayesianNetwork([('COLE_BILINGUE', 'puntaje'),
                           ('COLE_JORNADA','puntaje'),
-                          ('COLE_NATURALEZA','puntaje'),
+                          ('COLE_NATURALEZA','COLE_JORNADA'),
                           ('ESTU_GENERO','puntaje'),
-                          ('FAMI_ESTRATOVIVIENDA','puntaje'),
+                          ('FAMI_ESTRATOVIVIENDA','FAMI_TIENEINTERNET'),
+                          ('FAMI_ESTRATOVIVIENDA','FAMI_TIENECOMPUTADOR'),
+                          ('FAMI_TIENEINTERNET','FAMI_TIENECOMPUTADOR'),
                           ('FAMI_TIENEINTERNET','puntaje'),
                           ('FAMI_TIENECOMPUTADOR','puntaje'),])
 
