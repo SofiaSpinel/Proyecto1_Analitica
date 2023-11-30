@@ -20,15 +20,15 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 # defina el servidor para llevar el registro de modelos y artefactos
 # mlflow.set_tracking_uri('http://0.0.0.0:5000')
 # registre el experimento
-experiment = mlflow.set_experiment("exp-efecto_Pandemia")
+experiment = mlflow.set_experiment("exp-efecto_Pandemia-logica")
 
 # Aquí se ejecuta MLflow sin especificar un nombre o id del experimento. MLflow los crea un experimento para este cuaderno por defecto y guarda las características del experimento y las métricas definidas. 
 # Para ver el resultado de las corridas haga click en Experimentos en el menú izquierdo. 
 with mlflow.start_run(experiment_id=experiment.experiment_id):
     # defina los parámetros del modelo
-    n_estimators = 200 
-    max_depth = 6
-    max_features = 3
+    #n_estimators = 200 
+    #max_depth = 6
+    #max_features = 3
     # Cree el modelo con los par�metros definidos y entrénelo
     #rf = RandomForestRegressor(n_estimators = n_estimators, max_depth = max_depth, max_features = max_features)
     #rf.fit(X_train, y_train)
@@ -45,12 +45,12 @@ with mlflow.start_run(experiment_id=experiment.experiment_id):
     y_pred = modelo.predict(X_test)
   
     # Registre los par�metros
-    mlflow.log_param("num_trees", n_estimators)
-    mlflow.log_param("maxdepth", max_depth)
-    mlflow.log_param("max_feat", max_features)
+    #mlflow.log_param("num_trees", n_estimators)
+    #mlflow.log_param("maxdepth", max_depth)
+    #mlflow.log_param("max_feat", max_features)
   
     # Registre el modelo
-    mlflow.sklearn.log_model(modelo, "random-forest-model")
+    mlflow.sklearn.log_model(modelo, "modelo-1-l�gica")
   
     # Cree y registre la mtrica de interés
     #mse = mean_squared_error(y_test, predictions)
