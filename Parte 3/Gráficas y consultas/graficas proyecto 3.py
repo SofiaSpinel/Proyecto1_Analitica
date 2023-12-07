@@ -121,6 +121,48 @@ plt.legend()
 # Mostrar la gráfica
 plt.show()
 
+#Genero-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+dfavg = pd.read_csv("C:/Users/valer/OneDrive/Documentos/Analitica de datos/Proyecto 3/genero puntajes.csv")
+
+print(dfavg)
+
+dfavg = dfavg.drop("estu_genero", axis=1)
+
+fila = dfavg.iloc[1]
+print(fila)
+
+fila2 = dfavg.iloc[0]
+print(fila2)
+
+
+# Datos de ejemplo
+categorias = dfavg.columns.values
+datos_f = fila2  # Primer conjunto de datos
+datos_m = fila    # Segundo conjunto de datos
+
+# Configuración de barras dobles
+ancho_barra = 0.35  # Ancho de cada barra
+indice = np.arange(len(categorias))  # Índices para las ubicaciones de las barras
+
+# Crear el gráfico de barras dobles
+plt.bar(indice - ancho_barra/2, datos_m, width=ancho_barra, label='Masculino', color = "lightblue")
+plt.bar(indice + ancho_barra/2, datos_f, width=ancho_barra, label='Femenino', color = "teal")
+
+# Configurar el gráfico
+plt.xlabel('Categorías')
+plt.ylabel('Valores')
+plt.title('Gráfico de Barras Dobles por Categoría')
+plt.xticks(indice, categorias)
+plt.legend()
+
+# Mostrar el gráfico
+plt.show()
 
 
 
