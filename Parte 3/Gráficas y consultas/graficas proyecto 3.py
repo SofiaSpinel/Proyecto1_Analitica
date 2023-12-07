@@ -165,4 +165,56 @@ plt.legend()
 plt.show()
 
 
+#Naturaleza------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import matplotlib.pyplot as plt
+
+
+categorias = ["NO OFICIAL", "OFICIAL"]
+
+valores = [269.03389830508473,221.16894446059902]
+
+# Crear el gráfico de barras
+barsi =plt.bar(categorias,valores, color="lightblue")
+
+barsi[0].set_color('blue')
+
+plt.xticks(categorias, fontsize=12, fontname = "Times New Roman")
+# Agregar etiquetas y título
+
+plt.xlabel('Categorías')
+plt.ylabel('Valores')
+plt.title('Puntaje promedio según la naturaleza del colegio')
+
+# Mostrar el gráfico
+plt.show()
+
+
+#Jornada--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+import matplotlib.pyplot as plt
+
+dfjor = pd.read_csv("C:/Users/valer/OneDrive/Documentos/Analitica de datos/Proyecto 3/puntaje global promedio por jornada.csv")
+print(dfjor)
+categorias = dfjor['cole_jornada']
+
+valores = dfjor['_col0']
+
+# Crear el gráfico de barras
+barsi2 = plt.bar(categorias,valores, color=(0.5,0,0.5))
+
+barsi2[0].set_color('#FFC0CB')
+#(0.784, 0.627, 1.0)
+
+plt.xticks(categorias, fontsize=12, fontname = "Times New Roman")
+# Agregar etiquetas y título
+
+plt.xlabel('Categorías')
+plt.ylabel('Valores')
+plt.title('Puntaje promedio según la jornada del colegio')
+
+# Mostrar el gráfico
+plt.show()
+
+
 
